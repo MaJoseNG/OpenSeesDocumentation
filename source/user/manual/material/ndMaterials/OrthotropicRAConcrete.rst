@@ -6,8 +6,6 @@ OrthotropicRotatingAngleConcrete Material
 This command is used to construct an OrthotropicRotatingAngleConcrete material object. It is the abstract representation of an Orthotropic Concrete Layer (plane stress) 2D material with the Rotating Angle and Tangent formulation for cycling or reversed loading with damage that is used in Finite Element Method or Structural Analysis.
 
 .. admonition:: Command
-
-   element E_SFI $eleTag $iNode $jNode $m $c -thick $thicknesses -width $widths -mat $matTags
    
    nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01 $matTag $conc $ecr $ec $rho <-damageCte1 $DamageCte1> <-damageCte1 $DamageCte1>
 
@@ -25,12 +23,11 @@ This command is used to construct an OrthotropicRotatingAngleConcrete material o
 
 .. admonition:: Notes
 
-   | 1. 
-   | 2. 
-   
+    The valid queries to the OrthotropicRotatingAngleConcrete material when creating an ElementRecorder are **strain**, **stress** and **tangent** (as with all nDmaterial).
+
 .. admonition:: Examples
 
-   The following example constructs an OrthotropicRotatingAngleConcrete material with tag **1** and an uniaxial conrete material of tag **1**, with a strain at tension cracking of **0.00008** and a strain at the compression strength of **-0.002** for a density of **0.0**    
+   The following example constructs an OrthotropicRotatingAngleConcrete material with tag **1**, composed of an uniaxial concrete material of tag **1**, a strain at tension cracking of **0.00008** and a strain at the compression strength of **-0.002** for a density of **0.0**.
 
    1. **Tcl Code**
 
