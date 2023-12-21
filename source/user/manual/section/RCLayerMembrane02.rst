@@ -53,7 +53,7 @@ The following recorders are available with the RCLayerMembrane02 section.
    
 **REFERENCES:**
 
-#. Rojas, F., Anderson, J. C., Massones, L. M. (2016). A nonlinear quadrilateral layered membrane with drilling degrees of freedom for the modeling of reinforced concrete walls. Engineering Structures, 124, 521-538.
+#. Rojas, F., Anderson, J. C., Massones, L. M. (2016). A nonlinear quadrilateral layered membrane with drilling degrees of freedom for the modeling of reinforced concrete walls. Engineering Structures, 124, 521-538. (`link <https://www.sciencedirect.com/science/article/pii/S0141029616302954>`_).
 
 
-**Code Developed by:**
+**Code Developed by:** F. Rojas (University of Chile), M.J. Núñez (University of Chile).
