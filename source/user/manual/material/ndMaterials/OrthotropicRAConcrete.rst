@@ -22,8 +22,10 @@ This command is used to construct an OrthotropicRotatingAngleConcrete material o
    $DamageCte1, float, damage constant (optional: default = 0.6)
 
 .. admonition:: Notes
-
-    The valid queries to the OrthotropicRotatingAngleConcrete material when creating an ElementRecorder are **strain**, **stress** and **tangent** (as with all nDmaterial).
+   
+   | 1. The implementation of this material includes the effect of damage due to cyclic or reversal loading. Only damage in compression is considered. 
+   | 2. If this effect is not to be considered, damage constants can be set equal to **0.0**.
+   | 3. The valid queries to the OrthotropicRotatingAngleConcrete material when creating an ElementRecorder are **strain**, **stress** and **tangent** (as with all nDmaterial).
 
 .. admonition:: Examples
 

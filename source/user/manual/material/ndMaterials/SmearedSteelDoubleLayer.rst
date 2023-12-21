@@ -22,7 +22,8 @@ This command is used to construct a SmearedSteelDoubleLayer material object. It 
 
 .. admonition:: Notes
 
-    The valid queries to the SmearedSteelDoubleLayer material when creating an ElementRecorder are **strain**, **stress** and **tangent** (as with all nDmaterial).
+   | 1. No reductions in yield strength and strain-hardening ratio are accounted for (due to the steel being embedded in concrete).
+   | 2.	The valid queries to the SmearedSteelDoubleLayer material when creating an ElementRecorder are **strain**, **stress** and **tangent** (as with all nDmaterial).
 
 .. admonition:: Examples
 

@@ -14,12 +14,24 @@ This command is used to construct a RCLayerMembrane02 section object. It is the 
    :widths: 10, 10, 40
 
    $secTag, integer, unique section tag
-   $matTag, integer, nDMaterial reinforced concrete tag
+   $matTag, integer, nDMaterial (`FSAM <https://opensees.berkeley.edu/wiki/index.php/FSAM_-_2D_RC_Panel_Constitutive_Behavior>`_) tag
    $Thickness, float, macro-fiber thickness
+
+
+
+
+The following recorders are available with the RCLayerMembrane02 section.
+   
+.. csv-table:: 
+   :header: "Recorder", "Description"
+   :widths: 20, 40
+
+   panel_strain, "strains :math:`\epsilon_{xx}`, :math:`\epsilon_{yy}`, :math:`\gamma_{xy}`"
+   panel_stress, "resulting panel stresses :math:`\sigma_{xx}`, :math:`\sigma_{yy}`, :math:`\tau_{xy}`"
 
 .. admonition:: Notes
 
-   The valid queries to the Drucker-Prager material when creating an ElementRecorder are ‘strain’ and ‘stress’ (as with all nDmaterial).
+   | 1. The RCLayerMembrane02 should be used in conjunction with ``FSAM`` material. It can also be used in a ``MEFI`` element. 
    
 .. admonition:: Examples
 
