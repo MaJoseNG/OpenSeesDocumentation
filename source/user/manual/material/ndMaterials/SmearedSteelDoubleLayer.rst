@@ -3,11 +3,20 @@
 SmearedSteelDoubleLayer Material
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This command is used to construct a SmearedSteelDoubleLayer material object. It is the abstract representation of a double perpendicular smeared steel layers (plane stress) 2D material with a tangent formulation, and use a uniaxial material in each direction that is used in Finite Element Method or Structural Analysis.
+This command is used to construct a SmearedSteelDoubleLayer material object. It is the abstract representation of a double perpendicular smeared steel layer (plane stress) 2D material with a tangent formulation. Each layer works only in the direction of the bars, so a uniaxial constitutive model is used to represent the reinforcing steel bar in each direction. The angle that defines the orientation
+of the steel layers with respect to the local coordinate system **x-y** is denoted as :math:`\theta{s}`, represented by the argument ``$OrientationEmbeddedSteel``.
+
+.. figure:: SmearedSteelDoubleLayer_figure.jpg
+	:align: center
+	:figclass: align-center
+	:width: 1000px
+	:name: SmearedSteel_FIG
+	
+	SmearedSteelDoubleLayer Material: (a) Distributed reinforcement; (b) Rebar layers and steel layers orientation.
 
 .. admonition:: Command
    
-   nDMaterial SmearedSteelDoubleLayerT2DMaterial01 $matTag $s1 $s2 $ratioSteelLayer1 $ratioSteelLayer2 $OrientationEmbeddedSteel
+   nDMaterial SmearedSteelDoubleLayer $matTag $s1 $s2 $ratioSteelLayer1 $ratioSteelLayer2 $OrientationEmbeddedSteel
 
 .. csv-table:: 
    :header: "Parameter", "Type", "Description"
@@ -18,35 +27,35 @@ This command is used to construct a SmearedSteelDoubleLayer material object. It 
    $s2, integer, tag of unixial simulating vertical reinforcement
    $ratioSteelLayer1, float, reinforcing ratio in horizontal direction of smeared steel
    $ratioSteelLayer2, float, reinforcing ratio in vertical direction of smeared steel
-   $OrientationEmbeddedSteel, float, orientation of the smeared steel layer
+   $OrientationEmbeddedSteel, float, orientation of the smeared steel layers
 
 .. admonition:: Notes
 
-   | 1. No reductions in yield strength and strain-hardening ratio are accounted for (due to the steel being embedded in concrete).
+   | 1. The implementation of this material does not include the reductions in yield strength and strain-hardening ratio for embedded steel bars in concrete (Belarbi and Hsu, 1995).
    | 2.	The valid queries to the SmearedSteelDoubleLayer material when creating an ElementRecorder are **strain**, **stress** and **tangent** (as with all nDmaterial).
 
 .. admonition:: Examples
 
-   The following example constructs a SmearedSteelDoubleLayer material with tag **1** , composed of a horizontal and vertical uniaxial steel material of tag **1**, reinforcing ratio in horizontal and vertical direction of **1%** and an orientation of the smeared steel layer of **0.0** radians.   
+   The following example constructs a SmearedSteelDoubleLayer material with tag **1** , composed of a horizontal and vertical uniaxial steel material of tag **1**, reinforcing ratio in horizontal and vertical direction of **1%** and an orientation of the double smeared steel layer of **0.0** radians.   
 
    1. **Tcl Code**
 
    .. code-block:: tcl
 	  
-	  nDMaterial SmearedSteelDoubleLayerT2DMaterial01 1 1 1 0.01 0.01 0.0;
+	  nDMaterial SmearedSteelDoubleLayer 1 1 1 0.01 0.01 0.0;
 		
    2. **Python Code**
 
    .. code-block:: python
 
-      nDMaterial('SmearedSteelDoubleLayerT2DMaterial01', 1, 1, 1, 0.01, 0.01, 0.0)	  
+      nDMaterial('SmearedSteelDoubleLayer', 1, 1, 1, 0.01, 0.01, 0.0)	  
    
 
    
 **REFERENCES:**
 
 #. Rojas, F., Anderson, J. C., Massones, L. M. (2016). A nonlinear quadrilateral layered membrane with drilling degrees of freedom for the modeling of reinforced concrete walls. Engineering Structures, 124, 521-538. (`link <https://www.sciencedirect.com/science/article/pii/S0141029616302954>`_).
-
+#. Belarbi, A., & Hsu, T. C. (1995). Constitutive  laws   of   softened   concrete   in   biaxial   tension compression.  ACI  Structural  Journal, 92(5), 562–73. (`link <https://www.scopus.com/record/display.uri?eid=2-s2.0-0029361065&origin=inward>`_)
 
 **Code Developed by:** F. Rojas (University of Chile), M.J. Núñez (University of Chile).
 
