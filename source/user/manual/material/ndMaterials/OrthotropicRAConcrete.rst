@@ -3,7 +3,7 @@
 OrthotropicRotatingAngleConcrete Material
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This command is used to construct an OrthotropicRotatingAngleConcrete material object. It is the abstract representation of an orthotropic concrete layer (plane stress) 2D material with the rotating angle and tangent formulation for cycling or reversed loading with damage. In this formulation, the constitutive model of concrete in each of the principal strain directions can be represented by a uniaxial concrete model.
+This command is used to construct an OrthotropicRotatingAngleConcrete material object. It is the abstract representation of an orthotropic concrete layer (plane stress) 2D material with the rotating angle and tangent formulation for cycling or reversed loading with damage. In this formulation, the constitutive model of concrete in each of the principal strain directions (:math:`\theta_{pd}`) can be represented by a uniaxial concrete model (based on the work of Rojas et al., 2016).
 
 .. figure:: OrthotropicRAConcrete_figure.jpg
 	:align: center
@@ -50,19 +50,19 @@ This command is used to construct an OrthotropicRotatingAngleConcrete material o
 
 .. admonition:: Examples
 
-   The following example constructs an OrthotropicRotatingAngleConcrete material with tag **1**, composed of an uniaxial concrete material of tag **1**, a strain at tension cracking of **0.00008** and a strain at the compression strength of **-0.002** for a density of **0.0**.
+   The following example constructs an OrthotropicRotatingAngleConcrete material with tag **2**, composed of a uniaxial concrete material (e.g. `Concrete02 <https://opensees.berkeley.edu/wiki/index.php/Concrete02_Material_--_Linear_Tension_Softening>`_, `Concrete06 <https://opensees.berkeley.edu/wiki/index.php/Concrete06_Material>`_) of tag **1**, a strain at tension cracking of **0.00008** and a strain at the compression strength of **-0.002** for a density of **0.0**.
 
    1. **Tcl Code**
 
    .. code-block:: tcl
 	  
-	  nDMaterial OrthotropicRAConcrete 1 1 0.00008 -0.002 0.0
+	  nDMaterial OrthotropicRAConcrete 2 1 0.00008 -0.002 0.0
 		
    2. **Python Code**
 
    .. code-block:: python
 
-      nDMaterial('OrthotropicRAConcrete', 1, 1, 0.00008, -0.002, 0.0)	  
+      nDMaterial('OrthotropicRAConcrete', 2, 1, 0.00008, -0.002, 0.0)	  
    
 
    

@@ -3,7 +3,7 @@
 ReinforcedConcreteLayerMembraneSection01
 ^^^^^^^^^^^^^^^^
 
-This command is used to construct a ReinforcedConcreteLayerMembraneSection01 object. It is the abstract representation for the stress-strain behavior for a reinforced concrete layer membrane element.
+This command is used to construct a ReinforcedConcreteLayerMembraneSection01 object. It is the abstract representation for the stress-strain behavior for a reinforced concrete layer membrane element (based on the work of Rojas et al., 2016).
 
 .. admonition:: Command
    
@@ -18,7 +18,7 @@ This command is used to construct a ReinforcedConcreteLayerMembraneSection01 obj
    $nConcLayer, integer, number of concrete layers
    $RSteelAtEachLayer, list int, a list of *nSteelLayer* nDMaterial reinforced steel tags to be assigned to each layer
    $concAtEachLayer, list int, a list of *nConcLayer* nDMaterial concrete tag to be assigned to each layer
-   $Thicknesses, list float, a list of *nConcLayer* concrete layer thicknesses 
+   $Thicknesses, list float, a list of *nConcLayer* concrete layers thicknesses 
    $ecr, float, strain at tension cracking of the concrete (optional: default = 0.00008)
    $ec, float, strain at the compression strength of the concrete (optional: default = -0.002)
    
@@ -57,9 +57,6 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       # ========================================================================================
       # RW-A20-P10-S38 (Tran, 2012) - Definition of properties and creation of materials
-      # Created by: Carlos Lopez O.
-      # Adapted by: Maria Jose Nunez G.
-      #             07/2023
       # ========================================================================================
 
       source LibUnits.tcl;               # define basic units
@@ -144,8 +141,8 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       set tnc  [expr 81.0*$mm];     # unconfined concrete wall layer thickness
       set tc   [expr 71.4*$mm];     # confined concrete wall layer thickness   
 
-      section RCLMS01 10 1 1 -reinfSteel 8   -conc 6   -concThick $tw        -epscr $strainAtFt -epsc $ec0;         # Section b (wall web)
-      section RCLMS01 11 1 2 -reinfSteel 9   -conc 6 7 -concThick $tnc $tc   -epscr $strainAtFt -epsc $ec0c;        # Section a (wall boundary)
+      section RCLMS01 10 1 1 -reinfSteel 8   -conc 6   -concThick $tw        -epscr $strainAtFt -epsc $ec0;         # Section type b (wall web)
+      section RCLMS01 11 1 2 -reinfSteel 9   -conc 6 7 -concThick $tnc $tc   -epscr $strainAtFt -epsc $ec0c;        # Section type a (wall boundary)
 
 		
    2. **Python Code**
@@ -154,9 +151,6 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       # ========================================================================================
       # RW-A20-P10-S38 (Tran, 2012) - Definition of properties and creation of materials
-      # Created by: Carlos Lopez O.
-      # Adapted by: Maria Jose Nunez G.
-      #             07/2023
       # ========================================================================================
 
       # Import OpenSeesPy
@@ -248,8 +242,8 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       tnc = 81.0*mm      # unconfined concrete wall layer thickness
       tc  = 71.4*mm      # confined concrete wall layer thickness   
 
-      ops.section('RCLMS01', 10, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tw,        '-epscr', 0.00008, '-epsc', -0.002)      # Section b (wall web)
-      ops.section('RCLMS01', 11, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tnc, tc,   '-epscr', 0.00008, '-epsc', -0.002)      # Section a (wall boundary)   
+      ops.section('RCLMS01', 10, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tw,        '-epscr', 0.00008, '-epsc', -0.002)      # Section type b (wall web)
+      ops.section('RCLMS01', 11, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tnc, tc,   '-epscr', 0.00008, '-epsc', -0.002)      # Section type a (wall boundary)   
 
    
 **REFERENCES:**

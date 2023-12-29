@@ -3,7 +3,7 @@
 ReinforcedConcreteLayerMembraneSection02 
 ^^^^^^^^^^^^^^^^
 
-This command is used to construct a ReinforcedConcreteLayerMembraneSection02 object. It is the abstract representation for the stress-strain behavior for a reinforced concrete layer membrane element.
+This command is used to construct a ReinforcedConcreteLayerMembraneSection02 object. It is the abstract representation for the stress-strain behavior for a reinforced concrete layer membrane element (based on the work of Rojas et al., 2016).
 
 .. admonition:: Command
    
@@ -44,9 +44,6 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       # ========================================================================================
       # RW-A20-P10-S38 (Tran, 2012) - Definition of properties and creation of materials
-      # Created by: Carlos Lopez O.
-      # Adapted by: Maria Jose Nunez G.
-      #             07/2023
       # ========================================================================================
 
       source LibUnits.tcl;               # define basic units
@@ -110,22 +107,22 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       set nu 0.35;                # friction coefficient
       set alfadow [expr 0.005];   # dowel action stiffness parameter
-	  
-	  # ----------------------------------------------------------------------------------------
+      
+      # ----------------------------------------------------------------------------------------
       # Create FSAM nDMaterial
       # ----------------------------------------------------------------------------------------
 	  
-	  nDMaterial FSAM 6  0.0  1   2   4  $rouXw $rouYw  $nu  $alfadow;   # Web (unconfined concrete)
+      nDMaterial FSAM 6  0.0  1   2   4  $rouXw $rouYw  $nu  $alfadow;   # Web (unconfined concrete)
       nDMaterial FSAM 7  0.0  1   3   5  $rouXb $rouYb  $nu  $alfadow;   # Boundary (confined concrete)
 
       # ----------------------------------------------------------------------------------------
       # Create ReinforcedConcreteLayerMembraneSection02 section
       # ----------------------------------------------------------------------------------------
       
-	  set tw   [expr 152.4*$mm];    # Wall thickness
+      set tw   [expr 152.4*$mm];    # Wall thickness
 
-      section RCLMS02 10 6 $tw;     # Wall web
-      section RCLMS02 11 7 $tw;     # Wall boundary
+      section RCLMS02 10 6 $tw;     # Section type b (wall web)
+      section RCLMS02 11 7 $tw;     # Section type a (wall boundary)
 		
    2. **Python Code**
 
@@ -133,9 +130,6 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       # ========================================================================================
       # RW-A20-P10-S38 (Tran, 2012) - Definition of properties and creation of materials
-      # Created by: Carlos Lopez O.
-      # Adapted by: Maria Jose Nunez G.
-      #             07/2023
       # ========================================================================================
 
       # Import OpenSeesPy
@@ -219,8 +213,8 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       tw = 152.4 * mm  # Wall thickness
 
-      ops.section('RCLMS02', 10, 6, tw)    # Wall Web
-      ops.section('RCLMS02', 11, 7, tw)    # Wall Boundary
+      ops.section('RCLMS02', 10, 6, tw)    # Section type b (wall web)
+      ops.section('RCLMS02', 11, 7, tw)    # Section type a (wall boundary)
 
 
 
