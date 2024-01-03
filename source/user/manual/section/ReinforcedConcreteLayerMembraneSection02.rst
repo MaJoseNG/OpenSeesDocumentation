@@ -32,7 +32,7 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 .. admonition:: Notes
 
    | 1. The **ReinforcedConcreteLayerMembraneSection02** should be used in conjunction with ``FSAM`` material. It can also be used in a ``MEFI`` element. 
-   | 2. The section can also be referred to as **RCLayerMembraneSection02** or **RCLMS02**.
+   | 2. In Tcl, the section can also be referred to as **RCLayerMembraneSection02** or **RCLMS02**.
 
 .. admonition:: Examples
    
@@ -85,23 +85,28 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       set ec0 [expr -0.00232];                             # strain at peak compressive stress
       set ft [expr 2.13*$MPa];                             # peak tensile stress
       set strainAtFt [expr 0.00008];                       # concrete strain at tension cracking
-      set Ec [expr 34766.59*$MPa];                         # Young's modulus     
+      set Ec [expr 34766.59*$MPa];                         # Young's modulus
+      set rc [expr -$fpc/5.2-1.9];                         # shape parameter in Tsai’s equation defined for compression
+      set xcrn 1.016;                                      # non-dimensional critical strain on compression envelope
+      set rt 1.2;                                          # shape parameter in Tsai’s equation defined for tension
+      set xcrp 10000;                                      # non-dimensional critical strain on tension envelope	  
 
       # confined
       set fpcc [expr -53.78*$MPa];                         # peak compressive stress
       set ec0c [expr -0.00397];                            # strain at peak compressive stress
       set Ecc [expr 36542.37*$MPa];                        # Young's modulus
+      set rcc [expr -$fpcc/5.2-1.9];                       # shape parameter in Tsai’s equation defined for compression
+      set xcrnc 1.023;                                     # non-dimensional critical strain on compression envelope
 
       # build concrete materials
-      uniaxialMaterial Concrete02 4 $fpc $ec0 [expr 0.0*$fpc] -0.037 0.1 $ft [expr 0.05*$Ec];    	# unconfined concrete
-      uniaxialMaterial Concrete02 5 $fpcc $ec0c [expr 0.2*$fpc] -0.047 0.1 $ft [expr 0.05*$Ecc]; 	# confined concrete
+      uniaxialMaterial ConcreteCM 4 $fpc  $ec0  $Ec  $rc $xcrn $ft $strainAtFt $rt $xcrp;    	# unconfined concrete
+      uniaxialMaterial ConcreteCM 5 $fpcc $ec0c $Ecc $rcc $xcrnc $ft $strainAtFt $rt $xcrp; 	# confined concrete
 
       # define reinforcing ratios  
       set rouXw 0.0027;   # X web 
       set rouXb 0.0082;   # X boundary 
       set rouYw 0.0027;   # Y web
       set rouYb 0.0323;   # Y boundary
-
 
       # shear resisting mechanism parameters
 
@@ -180,15 +185,21 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       ft = 2.13 * MPa          # peak tensile stress
       et = 0.00008             # strain at peak tensile stress
       Ec = 34766.59 * MPa      # Young's modulus
+      rc = -fpc/5.2-1.9        # shape parameter in Tsai’s equation defined for compression
+      xcrn = 1.016             # non-dimensional critical strain on compression envelope
+      rt = 1.2                 # shape parameter in Tsai’s equation defined for tension
+      xcrp = 10000             # non-dimensional critical strain on tension envelope
 
       # confined
       fpcc = -53.78 * MPa      # peak compressive stress
       ec0c = -0.00397          # strain at peak compressive stress
       Ecc = 36542.37 * MPa     # Young's modulus
+      rcc = -fpcc/5.2-1.9      # shape parameter in Tsai’s equation defined for compression
+      xcrnc = 1.023            # non-dimensional critical strain on compression envelope
 
       # build concrete materials
-      ops.uniaxialMaterial('Concrete02', 4, fpc,  ec0,  0.0 * fpc, -0.037, 0.1, ft, 0.05 * Ec)   # unconfined concrete
-      ops.uniaxialMaterial('Concrete02', 5, fpcc, ec0c, 0.2 * fpc, -0.047, 0.1, ft, 0.05 * Ecc)  # confined concrete
+      ops.uniaxialMaterial('ConcreteCM', 4, fpc,  ec0, Ec, rc, xcrn, ft, et, rt, xcrp)      # unconfined concrete
+      ops.uniaxialMaterial('ConcreteCM', 5, fpcc, ec0c, Ecc, rcc, xcrnc, ft, et, rt, xcrp)  # confined concrete
 
       # define reinforcing ratios   
       rouXw = 0.0027         # X web 
@@ -213,8 +224,8 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       tw = 152.4 * mm  # Wall thickness
 
-      ops.section('RCLMS02', 10, 6, tw)    # Section type b (wall web)
-      ops.section('RCLMS02', 11, 7, tw)    # Section type a (wall boundary)
+      ops.section('ReinforcedConcreteLayerMembraneSection02', 10, 6, tw)    # Section type b (wall web)
+      ops.section('ReinforcedConcreteLayerMembraneSection02', 11, 7, tw)    # Section type a (wall boundary)
 
 
 

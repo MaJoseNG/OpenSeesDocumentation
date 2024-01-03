@@ -36,7 +36,7 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 .. admonition:: Notes
 
    | 1. The **ReinforcedConcreteLayerMembraneSection01** should be used in conjunction with ``OrthotropicRAConcrete`` and ``SmearedSteelDoubleLayer`` NDMaterials. It can also be used in a ``MEFI`` element. 
-   | 2. The section can also be referred to as **RCLayerMembraneSection01** or **RCLMS01**.
+   | 2. In Tcl, the section can also be referred to as **RCLayerMembraneSection01** or **RCLMS01**.
    
 .. admonition:: Examples
    
@@ -242,8 +242,8 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       tnc = 81.0*mm      # unconfined concrete wall layer thickness
       tc  = 71.4*mm      # confined concrete wall layer thickness   
 
-      ops.section('RCLMS01', 10, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tw,        '-epscr', 0.00008, '-epsc', -0.002)      # Section type b (wall web)
-      ops.section('RCLMS01', 11, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tnc, tc,   '-epscr', 0.00008, '-epsc', -0.002)      # Section type a (wall boundary)   
+      ops.section('ReinforcedConcreteLayerMembraneSection01', 10, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tw,        '-epscr', 0.00008, '-epsc', -0.002)      # Section type b (wall web)
+      ops.section('ReinforcedConcreteLayerMembraneSection01', 11, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tnc, tc,   '-epscr', 0.00008, '-epsc', -0.002)      # Section type a (wall boundary)   
 
    
 **REFERENCES:**
