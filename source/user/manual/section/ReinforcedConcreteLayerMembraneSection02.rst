@@ -3,7 +3,7 @@
 ReinforcedConcreteLayerMembraneSection02 
 ^^^^^^^^^^^^^^^^
 
-This command is used to construct a ReinforcedConcreteLayerMembraneSection02 object. It is the abstract representation for the stress-strain behavior for a reinforced concrete layer membrane element (based on the work of Rojas et al., 2016).
+This command is used to construct a ReinforcedConcreteLayerMembraneSection02 object. It is the abstract representation for the stress-strain behavior for a reinforced concrete layered membrane element (based on the work of Rojas et al., 2016).
 
 .. admonition:: Command
    
@@ -44,63 +44,54 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       # ========================================================================================
       # RW-A20-P10-S38 (Tran, 2012) - Definition of properties and creation of materials
+      # Basic units: N, mm
       # ========================================================================================
-
-      source LibUnits.tcl;               # define basic units
-
       # ----------------------------------------------------------------------------------------
       # Create uniaxial steel materials
       # ----------------------------------------------------------------------------------------
 
       # steel X
-      set fyX [expr 469.93*$MPa];        # fy
+      set fyX 469.93;                    # fy
       set bx 0.02;                       # strain hardening
 
       # steel Y web
-      set fyYw [expr 409.71*$MPa];       # fy
+      set fyYw 409.71;                   # fy
       set byw 0.02;                      # strain hardening
 
       # steel Y boundary
-      set fyYb [expr 429.78*$MPa];       # fy
+      set fyYb 429.78;                   # fy
       set byb 0.01;                      # strain hardening
 
       # steel misc
-      set Esy [expr 200000.0*$MPa];      # Young's modulus
-      set Esx $Esy;                      # Young's modulus
+      set Es 200000.0;                   # Young's modulus
       set R0 20.0;                       # initial value of curvature parameter
       set A1 0.925;                      # curvature degradation parameter
       set A2 0.15;                       # curvature degradation parameter
   
       # build steel materials
-      uniaxialMaterial  Steel02  1 $fyX  $Esx $bx  $R0 $A1 $A2; # steel X
-      uniaxialMaterial  Steel02  2 $fyYw $Esy $byw $R0 $A1 $A2; # steel Y web
-      uniaxialMaterial  Steel02  3 $fyYb $Esy $byb $R0 $A1 $A2; # steel Y boundary
+      uniaxialMaterial  Steel02  1 $fyX  $Es $bx  $R0 $A1 $A2; # steel X
+      uniaxialMaterial  Steel02  2 $fyYw $Es $byw $R0 $A1 $A2; # steel Y web
+      uniaxialMaterial  Steel02  3 $fyYb $Es $byb $R0 $A1 $A2; # steel Y boundary
 
       # ----------------------------------------------------------------------------------------
       # Create uniaxial concrete materials
       # ----------------------------------------------------------------------------------------
 
       # unconfined
-      set fpc [expr -47.09*$MPa];                          # peak compressive stress
-      set ec0 [expr -0.00232];                             # strain at peak compressive stress
-      set ft [expr 2.13*$MPa];                             # peak tensile stress
-      set strainAtFt [expr 0.00008];                       # concrete strain at tension cracking
-      set Ec [expr 34766.59*$MPa];                         # Young's modulus
-      set rc [expr -$fpc/5.2-1.9];                         # shape parameter in Tsai’s equation defined for compression
-      set xcrn 1.016;                                      # non-dimensional critical strain on compression envelope
-      set rt 1.2;                                          # shape parameter in Tsai’s equation defined for tension
-      set xcrp 10000;                                      # non-dimensional critical strain on tension envelope	  
+      set fpc -47.09;                                      # peak compressive stress
+      set ec0 -0.00232;                                    # strain at peak compressive stress
+      set ft 2.13;                                         # peak tensile stress
+      set et 0.00008;                                      # concrete strain at tension cracking
+      set Ec 34766.59;                                     # Young's modulus
 
       # confined
-      set fpcc [expr -53.78*$MPa];                         # peak compressive stress
-      set ec0c [expr -0.00397];                            # strain at peak compressive stress
-      set Ecc [expr 36542.37*$MPa];                        # Young's modulus
-      set rcc [expr -$fpcc/5.2-1.9];                       # shape parameter in Tsai’s equation defined for compression
-      set xcrnc 1.023;                                     # non-dimensional critical strain on compression envelope
+      set fpcc -53.78;                                     # peak compressive stress
+      set ec0c -0.00397;                                   # strain at peak compressive stress
+      set Ecc 36542.37;                                    # Young's modulus
 
       # build concrete materials
-      uniaxialMaterial ConcreteCM 4 $fpc  $ec0  $Ec  $rc $xcrn $ft $strainAtFt $rt $xcrp;    	# unconfined concrete
-      uniaxialMaterial ConcreteCM 5 $fpcc $ec0c $Ecc $rcc $xcrnc $ft $strainAtFt $rt $xcrp; 	# confined concrete
+      uniaxialMaterial ConcreteCM 4 $fpc  $ec0  $Ec  7.16 1.016 $ft $et 1.2 10000;      # unconfined concrete
+      uniaxialMaterial ConcreteCM 5 $fpcc $ec0c $Ecc 8.44 1.023 $ft $et 1.2 10000;      # confined concrete
 
       # define reinforcing ratios  
       set rouXw 0.0027;   # X web 
@@ -111,7 +102,7 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       # shear resisting mechanism parameters
 
       set nu 0.35;                # friction coefficient
-      set alfadow [expr 0.005];   # dowel action stiffness parameter
+      set alfadow 0.005;          # dowel action stiffness parameter
       
       # ----------------------------------------------------------------------------------------
       # Create FSAM nDMaterial
@@ -124,7 +115,7 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       # Create ReinforcedConcreteLayerMembraneSection02 section
       # ----------------------------------------------------------------------------------------
       
-      set tw   [expr 152.4*$mm];    # Wall thickness
+      set tw 152.4;                 # Wall thickness
 
       section RCLMS02 10 6 $tw;     # Section type b (wall web)
       section RCLMS02 11 7 $tw;     # Section type a (wall boundary)
@@ -135,71 +126,56 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
 
       # ========================================================================================
       # RW-A20-P10-S38 (Tran, 2012) - Definition of properties and creation of materials
+      # Basic units: N, mm
       # ========================================================================================
 
       # Import OpenSeesPy
       import openseespy.opensees as ops
 
-      # define basic units
-      mm = 1.
-      N = 1.
-      sec = 1.
-
-      mm2 = mm*mm
-      MPa = N/mm2
-      kN = 1000*N
-
       # ----------------------------------------------------------------------------------------
       # Create uniaxial steel materials
       # ----------------------------------------------------------------------------------------
       # steel x
-      fyX = 469.93 * MPa       # fy
+      fyX = 469.93             # fy
       bx = 0.02                # strain hardening
 
       # steel Y web
-      fyYw = 409.71 * MPa      # fy
+      fyYw = 409.71            # fy
       byw = 0.02               # strain hardening
 
       # steel Y boundary
-      fyYb = 429.78 * MPa      # fy
+      fyYb = 429.78            # fy
       byb = 0.01               # strain hardening
 
       # steel misc
-      Esy = 200000.0 * MPa     # Young's modulus
-      Esx = Esy                # Young's modulus
+      Es = 200000.0            # Young's modulus
       R0 = 20.0                # initial value of curvature parameter
       A1 = 0.925               # curvature degradation parameter
       A2 = 0.15                # curvature degradation parameter
 
       # build steel materials
-      ops.uniaxialMaterial('Steel02', 1, fyX,  Esx, bx,  R0, A1, A2)  # steel X
-      ops.uniaxialMaterial('Steel02', 2, fyYw, Esy, byw, R0, A1, A2)  # steel Y web
-      ops.uniaxialMaterial('Steel02', 3, fyYb, Esy, byb, R0, A1, A2)  # steel Y boundary
+      ops.uniaxialMaterial('Steel02', 1, fyX,  Es, bx,  R0, A1, A2)  # steel X
+      ops.uniaxialMaterial('Steel02', 2, fyYw, Es, byw, R0, A1, A2)  # steel Y web
+      ops.uniaxialMaterial('Steel02', 3, fyYb, Es, byb, R0, A1, A2)  # steel Y boundary
 
       # ----------------------------------------------------------------------------------------
       # Create uniaxial concrete materials
       # ----------------------------------------------------------------------------------------
       # unconfined
-      fpc = -47.09 * MPa       # peak compressive stress
+      fpc = -47.09             # peak compressive stress
       ec0 = -0.00232           # strain at peak compressive stress
-      ft = 2.13 * MPa          # peak tensile stress
+      ft = 2.13                # peak tensile stress
       et = 0.00008             # strain at peak tensile stress
-      Ec = 34766.59 * MPa      # Young's modulus
-      rc = -fpc/5.2-1.9        # shape parameter in Tsai’s equation defined for compression
-      xcrn = 1.016             # non-dimensional critical strain on compression envelope
-      rt = 1.2                 # shape parameter in Tsai’s equation defined for tension
-      xcrp = 10000             # non-dimensional critical strain on tension envelope
+      Ec = 34766.59            # Young's modulus
 
       # confined
-      fpcc = -53.78 * MPa      # peak compressive stress
+      fpcc = -53.78            # peak compressive stress
       ec0c = -0.00397          # strain at peak compressive stress
-      Ecc = 36542.37 * MPa     # Young's modulus
-      rcc = -fpcc/5.2-1.9      # shape parameter in Tsai’s equation defined for compression
-      xcrnc = 1.023            # non-dimensional critical strain on compression envelope
+      Ecc = 36542.37           # Young's modulus
 
       # build concrete materials
-      ops.uniaxialMaterial('ConcreteCM', 4, fpc,  ec0, Ec, rc, xcrn, ft, et, rt, xcrp)      # unconfined concrete
-      ops.uniaxialMaterial('ConcreteCM', 5, fpcc, ec0c, Ecc, rcc, xcrnc, ft, et, rt, xcrp)  # confined concrete
+      ops.uniaxialMaterial('ConcreteCM', 4, fpc,  ec0, Ec, 7.16, 1.016, ft, et, 1.2, 10000)      # unconfined concrete
+      ops.uniaxialMaterial('ConcreteCM', 5, fpcc, ec0c, Ecc, 8.44, 1.023, ft, et, 1.2, 10000)    # confined concrete
 
       # define reinforcing ratios   
       rouXw = 0.0027         # X web 
@@ -222,7 +198,7 @@ The following recorders are available with the ReinforcedConcreteLayerMembraneSe
       # Create ReinforcedConcreteLayerMembraneSection02 section
       # ----------------------------------------------------------------------------------------
 
-      tw = 152.4 * mm  # Wall thickness
+      tw = 152.4    # Wall thickness
 
       ops.section('ReinforcedConcreteLayerMembraneSection02', 10, 6, tw)    # Section type b (wall web)
       ops.section('ReinforcedConcreteLayerMembraneSection02', 11, 7, tw)    # Section type a (wall boundary)
